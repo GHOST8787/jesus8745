@@ -149,6 +149,9 @@
         <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-purple-900/30 rounded-full mix-blend-screen filter blur-[100px] animate-blob"></div>
         <div class="absolute top-[20%] right-[-10%] w-96 h-96 bg-blue-900/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000"></div>
         <div class="absolute bottom-[-20%] left-[20%] w-96 h-96 bg-indigo-900/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-4000"></div>
+        
+        <!-- NEW: Global Cursor Glow -->
+        <div id="cursor-glow" class="fixed w-[600px] h-[600px] bg-blue-500/15 rounded-full blur-[100px] pointer-events-none z-0 mix-blend-screen transform -translate-x-1/2 -translate-y-1/2 top-0 left-0 hidden md:block transition-transform duration-75 ease-out"></div>
     </div>
     
     <!-- Canvas for Particle Network (Refined: Thinner lines) -->
@@ -230,6 +233,54 @@
                 <a href="#contact" class="px-8 py-3 bg-transparent border border-gray-700 text-gray-300 font-medium rounded-full hover:border-gray-500 hover:text-white transition-all">
                     Start a Project
                 </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me Section (With Embedded Image) -->
+    <section id="about" class="relative z-10 py-24 border-t border-white/5 bg-black/10">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <!-- Left: Image -->
+                <div class="w-full md:w-5/12">
+                    <div class="relative group">
+                         <!-- Glow Effect behind image -->
+                        <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                        <div class="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+                            <img src="20251212.jpeg" alt="ACC Profile" class="w-full h-auto object-cover transform transition duration-700 group-hover:scale-105">
+                            
+                            <!-- Overlay Info -->
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/80 to-transparent p-6 pt-12 opacity-90">
+                                <h3 class="text-white font-bold text-lg">ACC</h3>
+                                <p class="text-blue-400 text-xs font-mono">Automation Engineer</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Text Content -->
+                <div class="w-full md:w-7/12">
+                    <h2 class="text-gray-500 font-mono text-xs tracking-widest uppercase mb-4">/ About_Me</h2>
+                    <h3 class="text-3xl font-bold gradient-heading mb-6">Building Systems, <br> Not Just Scripts.</h3>
+                    
+                    <div class="space-y-4 text-gray-400 leading-relaxed font-light">
+                        <p>
+                            你好，我是 <span class="text-white font-medium">ACC</span>。雖然在自動化領域的從業年資約 1-2 年，但我對解決「重複性低效問題」有著極大的熱情。
+                        </p>
+                        <p>
+                            我相信技術不應該是冰冷的代碼，而是協助個人與企業奪回時間掌控權的鑰匙。我擅長觀察工作流中的斷點，並利用 <span class="text-blue-300">n8n</span>、<span class="text-blue-300">Python</span> 與 <span class="text-blue-300">AI</span> 將其無縫串接。
+                        </p>
+                        <p>
+                            我的目標很簡單：建立高效、可擴展且穩定的自動化系統，讓你能專注於真正有創造價值的工作。
+                        </p>
+                    </div>
+
+                    <div class="mt-8 flex gap-3">
+                        <div class="px-3 py-1 rounded border border-white/10 bg-white/5 text-xs font-mono text-gray-400">#Python</div>
+                        <div class="px-3 py-1 rounded border border-white/10 bg-white/5 text-xs font-mono text-gray-400">#RAG</div>
+                        <div class="px-3 py-1 rounded border border-white/10 bg-white/5 text-xs font-mono text-gray-400">#Workflow</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -448,8 +499,9 @@
 
     <!-- Scripts -->
     <script>
-        // 1. Mouse Position Tracker for Spotlight Effect
+        // 1. Mouse Position Tracker for Spotlight Effect & Cursor Glow
         function updateMousePosition(e) {
+            // Update Spotlight Cards
             const cards = document.getElementsByClassName('spotlight-card');
             for(const card of cards) {
                 const rect = card.getBoundingClientRect();
@@ -457,6 +509,12 @@
                 const y = e.clientY - rect.top;
                 card.style.setProperty('--mouse-x', `${x}px`);
                 card.style.setProperty('--mouse-y', `${y}px`);
+            }
+
+            // Update Global Cursor Glow
+            const cursorGlow = document.getElementById('cursor-glow');
+            if(cursorGlow) {
+                cursorGlow.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
             }
         }
 
